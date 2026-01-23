@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 
 import gymnasium as gym
@@ -27,7 +27,7 @@ class AtariEnvConfig:
     full_action_space: bool = False
     render_mode: Optional[str] = None
 
-    wrappers: AtariWrapperConfig = AtariWrapperConfig()
+    wrappers: AtariWrapperConfig = field(default_factory=AtariWrapperConfig)
 
 
 def make_atari_env(cfg: AtariEnvConfig) -> gym.Env:
