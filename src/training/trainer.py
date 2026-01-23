@@ -5,6 +5,7 @@ from src.agents.dqn_agent import DQNAgent
 from src.agents.replay_buffer import ReplayBuffer
 from src.utils.logger import TBLogger
 from src.utils.timers import FPSMeter
+from src.training.callbacks import CheckpointManager, EpisodeCSVLogger
 
 
 @dataclass
@@ -33,12 +34,17 @@ class DQNTrainer:
         replay_buffer: ReplayBuffer,
         cfg: TrainerConfig,
         logger: Optional[TBLogger] = None,
+        checkpoint_mgr: Optional[CheckpointManager] = None,
+        episode_csv: Optional[EpisodeCSVLogger] = None,
     ):
         self.env = env
         self.agent = agent
         self.rb = replay_buffer
         self.cfg = cfg
         self.logger = logger
+
+        self.checkpoint_mgr = checkpoint_mgr
+        self.episode_csv = episode_csv
 
         self.fps_meter = FPSMeter()
 
@@ -71,6 +77,9 @@ class DQNTrainer:
                 if self.logger is not None and (episode_idx % self.cfg.episode_log_every == 0):
                     self.logger.log_scalar("episode/reward", episode_reward, step)
                     self.logger.log_scalar("episode/length", episode_len, step)
+
+                if self.episode_csv is not None:
+                    self.episode_csv.log(step, episode_idx, episode_reward, episode_len)
 
                 print(
                     f"[ep {episode_idx}] step={step} "
@@ -112,3 +121,8 @@ class DQNTrainer:
                         f"q_mean={metrics['q_mean']:.3f} q_max={metrics['q_max']:.3f} "
                         f"fps={fps:.1f}"
                     )
+
+            if self.checkpoint_mgr is not None:
+                saved = self.checkpoint_mgr.maybe_save(step, self.agent)
+                if saved is not None:
+                    print(f"[ckpt] saved: {saved}")
