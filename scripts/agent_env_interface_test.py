@@ -1,6 +1,3 @@
-# scripts/agent_env_interface_test.py
-from __future__ import annotations
-
 import argparse
 
 from src.envs import AtariEnvConfig, make_atari_env
@@ -56,7 +53,7 @@ def main():
         print(f"[Episode {ep}] reward={ep_reward:.2f}")
 
     env.close()
-    print("Agent-env interface test OK ✅")
+    print("Agent-env interface test OK")
 
 
 if __name__ == "__main__":

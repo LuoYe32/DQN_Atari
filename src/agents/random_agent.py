@@ -1,6 +1,3 @@
-# src/agents/random_agent.py
-from __future__ import annotations
-
 import numpy as np
 from gymnasium import spaces
 

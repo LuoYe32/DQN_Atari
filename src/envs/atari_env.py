@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 import gymnasium as gym
-
+import ale_py
 from .atari_wrappers import AtariWrapperConfig, apply_atari_wrappers
 
 
