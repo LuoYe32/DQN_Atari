@@ -1,3 +1,4 @@
+import os
 from dataclasses import dataclass
 from typing import Optional
 
@@ -126,3 +127,11 @@ class DQNTrainer:
                 saved = self.checkpoint_mgr.maybe_save(step, self.agent)
                 if saved is not None:
                     print(f"[ckpt] saved: {saved}")
+
+            if step % 1_000_000 == 0:
+                milestone_path = os.path.join(
+                    self.checkpoint_mgr.cfg.dirpath,
+                    f"milestone_{step}.pt"
+                )
+                self.agent.save(milestone_path)
+                print(f"[milestone] saved: {milestone_path}")

@@ -26,13 +26,20 @@ class CheckpointManager:
         path = os.path.join(self.cfg.dirpath, f"ckpt_step_{step}.pt")
         agent.save(path)
 
-        ckpts = sorted([f for f in os.listdir(self.cfg.dirpath) if f.startswith("ckpt_step_")])
+        ckpts = [f for f in os.listdir(self.cfg.dirpath) if f.startswith("ckpt_step_")]
+
+        def step_from_name(name: str) -> int:
+            return int(name.replace("ckpt_step_", "").replace(".pt", ""))
+
+        ckpts = sorted(ckpts, key=step_from_name)
+
         if len(ckpts) > self.cfg.keep_last:
             for f in ckpts[: len(ckpts) - self.cfg.keep_last]:
                 try:
                     os.remove(os.path.join(self.cfg.dirpath, f))
                 except OSError:
                     pass
+
         return path
 
 
