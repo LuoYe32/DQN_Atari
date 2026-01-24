@@ -18,6 +18,7 @@ def main():
     parser.add_argument("--device", type=str, default="cpu")
     parser.add_argument("--run_name", type=str, default=None)
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--lr", type=float, default=1e-4)
     args = parser.parse_args()
 
     set_global_seed(args.seed)
@@ -39,7 +40,7 @@ def main():
     env = make_atari_env(AtariEnvConfig(env_id=args.env_id))
     num_actions = env.action_space.n
 
-    agent = DQNAgent(num_actions=num_actions, cfg=DQNConfig(), device=args.device)
+    agent = DQNAgent(num_actions=num_actions, cfg=DQNConfig(lr=args.lr), device=args.device)
 
     rb = ReplayBuffer(
         ReplayBufferConfig(

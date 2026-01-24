@@ -19,7 +19,6 @@ def main():
     parser.add_argument("--fps", type=int, default=30)
     args = parser.parse_args()
 
-    # Eval env: обычно выключают episodic_life и reward_clipping для “честного” видео
     eval_wrappers = AtariWrapperConfig(
         episodic_life=False,
         reward_clipping=False,
