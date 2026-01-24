@@ -1,0 +1,18 @@
+env:
+  id: ALE/Pong-v5
+
+train:
+  total_steps: 2_500_000
+  learning_starts: 50_000
+  train_frequency: 4
+
+replay:
+  capacity: 1_000_000
+
+optimizer:
+  lr: 1e-4
+
+epsilon:
+  start: 1.0
+  end: 0.05
+  decay_steps: 1_000_000
