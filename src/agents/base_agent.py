@@ -38,15 +38,6 @@ class BaseAgent(ABC):
         """
         return
 
-    def observe(self, transition: Any) -> None:
-        """
-        Consume a transition (optional hook).
-
-        DQN will typically push transitions into a replay buffer inside
-        this method or inside a Trainer. Kept optional for flexibility.
-        """
-        return
-
     def save(self, path: str) -> None:
         """Save agent parameters/checkpoint (optional)."""
         raise NotImplementedError

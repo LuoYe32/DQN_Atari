@@ -39,7 +39,8 @@ class DQNAgent:
         self,
         num_actions: int,
         cfg: DQNConfig,
-        device: str = "cpu",
+        device: str = "mps",
+        # device: str = "cpu",
     ):
         self.cfg = cfg
         self.num_actions = int(num_actions)

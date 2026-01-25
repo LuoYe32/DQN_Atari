@@ -4,7 +4,7 @@ from typing import Any, Dict, Optional
 import numpy as np
 
 
-Obs = np.ndarray  # expected shape: (4, 84, 84), dtype=uint8
+Obs = np.ndarray
 
 
 @dataclass(frozen=True)

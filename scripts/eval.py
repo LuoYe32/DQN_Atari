@@ -47,11 +47,11 @@ def main():
         ep_reward = 0.0
 
         while not (terminated or truncated):
-            frame = env.render()  # rgb array
+            frame = env.render()
             if frame is not None:
                 frames.append(frame)
 
-            action = agent.act(obs, global_step=10**9, explore=False)  # greedy
+            action = agent.act(obs, global_step=10**9, explore=False)
             obs, reward, terminated, truncated, info = env.step(action)
             ep_reward += float(reward)
 

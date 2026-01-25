@@ -8,7 +8,7 @@ import torch
 @dataclass
 class ReplayBufferConfig:
     """
-    Memory-efficient Replay Buffer config.
+    Replay Buffer config.
 
     Args:
         capacity: Number of *frames* stored (not stacked observations).
@@ -19,7 +19,8 @@ class ReplayBufferConfig:
     capacity: int
     frame_shape: Tuple[int, int] = (84, 84)
     stack_size: int = 4
-    device: str = "cpu"
+    device: str = "mps"
+    # device: str = "cpu"
 
 
 class ReplayBuffer:
@@ -62,8 +63,7 @@ class ReplayBuffer:
         done: bool,
     ) -> None:
         """
-        Store only the *last frame* of next_obs_stack.
-        This ensures correct reconstruction of next state.
+        Store only the last frame of next_obs_stack to ensure correct reconstruction of next state.
         """
         assert obs_stack.dtype == np.uint8
         assert next_obs_stack.dtype == np.uint8
@@ -77,7 +77,6 @@ class ReplayBuffer:
 
         self.pos = (self.pos + 1) % self.capacity
         self.size = min(self.size + 1, self.capacity)
-
 
     def _get_stack(self, idx: int) -> np.ndarray:
         """Reconstruct stacked observation ending at idx."""
@@ -95,7 +94,6 @@ class ReplayBuffer:
                 break
 
         return np.stack(frames, axis=0)
-
 
     @torch.no_grad()
     def sample(self, batch_size: int) -> Dict[str, torch.Tensor]:

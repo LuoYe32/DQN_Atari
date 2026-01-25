@@ -32,7 +32,7 @@ class AtariEnvConfig:
 
 def make_atari_env(cfg: AtariEnvConfig) -> gym.Env:
     """
-    Create a Gymnasium Atari environment and apply standard DQN wrappers.
+    Create a Gymnasium Atari environment and apply DQN wrappers.
     """
     env = gym.make(
         cfg.env_id,

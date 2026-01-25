@@ -187,7 +187,7 @@ class FrameStack(gym.Wrapper):
         self.frames: Deque[np.ndarray] = deque(maxlen=k)
 
         assert isinstance(env.observation_space, spaces.Box)
-        h, w = env.observation_space.shape  # (84,84)
+        h, w = env.observation_space.shape
         self.observation_space = spaces.Box(
             low=0, high=255, shape=(k, h, w), dtype=np.uint8
         )
