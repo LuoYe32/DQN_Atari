@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict, Optional
 
 import numpy as np
@@ -21,9 +21,14 @@ class DQNConfig:
 
     grad_clip_norm: Optional[float] = 10.0
 
-    epsilon: EpsilonSchedule = EpsilonSchedule()
+    epsilon: EpsilonSchedule = field(default_factory=EpsilonSchedule)
 
-    target_update: TargetUpdateConfig = TargetUpdateConfig(mode="hard", period=10_000)
+    target_update: TargetUpdateConfig = field(
+        default_factory=lambda: TargetUpdateConfig(
+            mode="hard",
+            period=10_000
+        )
+    )
 
 
 class DQNAgent:
@@ -39,7 +44,8 @@ class DQNAgent:
         self,
         num_actions: int,
         cfg: DQNConfig,
-        device: str = "cpu",
+        device: str = "cuda",
+        # device: str = "mps",
     ):
         self.cfg = cfg
         self.num_actions = int(num_actions)
