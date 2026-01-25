@@ -19,7 +19,8 @@ class ReplayBufferConfig:
     capacity: int
     frame_shape: Tuple[int, int] = (84, 84)
     stack_size: int = 4
-    device: str = "cpu"
+    device: str = "cuda"
+    # device: str = "mps"
 
 
 class ReplayBuffer:
