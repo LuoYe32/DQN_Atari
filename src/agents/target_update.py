@@ -45,7 +45,6 @@ class TargetUpdater:
     def maybe_update(self, target: nn.Module, online: nn.Module) -> bool:
         """
         Apply update depending on config. Returns True if an update happened.
-        Call this once per gradient step (not env step).
         """
         self.step_count += 1
 

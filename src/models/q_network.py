@@ -36,7 +36,6 @@ class QNetwork(nn.Module):
             nn.ReLU(inplace=True),
         )
 
-        # For 84x84 input, output is 64 x 7 x 7 after conv stack
         self.head = nn.Sequential(
             nn.Flatten(),
             nn.Linear(64 * 7 * 7, cfg.hidden_dim),

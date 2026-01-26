@@ -54,7 +54,7 @@ class DQNAgent:
 
         self.optimizer = torch.optim.Adam(self.online.parameters(), lr=self.cfg.lr)
 
-        self.loss_fn = nn.SmoothL1Loss()  # Huber loss
+        self.loss_fn = nn.SmoothL1Loss()
 
         self.target_updater = TargetUpdater(self.cfg.target_update)
 
